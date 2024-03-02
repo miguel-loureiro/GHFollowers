@@ -19,6 +19,7 @@ class SearchViewController: UIViewController {
         configureImageLogoView()
         configureTextField()
         configureCallToActionButtonButton()
+        createDismissKeyboardTapGesture()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +28,21 @@ class SearchViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true //sempre que a view aparece a navbar não é visivel
                                                            //é colocado aqui e não no viewDidLoad pois o viewDidLoad apenas iria não mostrar a nav bar na 1a vez que
                                                            //a view aparece. Ao clicar no Favorites e depois ir novamente à Search a nav bar já ia aparecer.
+    }
+
+    func createDismissKeyboardTapGesture() {
+
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+
+    //coloca-se o @objc pois o selector é uma func de objective-c e tem que se expor esse selector em obj-c
+    @objc func pushFollowersListViewController() {
+
+        let followersListViewController = FollowersListViewController()
+        followersListViewController.username = userNameTextField.text
+        followersListViewController.title = userNameTextField.text
+        navigationController?.pushViewController(followersListViewController, animated: true)
     }
 
     func configureImageLogoView() {
@@ -47,6 +63,7 @@ class SearchViewController: UIViewController {
     func configureTextField() {
 
         view.addSubview(userNameTextField)
+        userNameTextField.delegate = self
 
         NSLayoutConstraint.activate([
 
@@ -60,6 +77,7 @@ class SearchViewController: UIViewController {
     func configureCallToActionButtonButton() {
 
         view.addSubview(callToActionButton)
+        callToActionButton.addTarget(self, action: #selector(pushFollowersListViewController), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
 
@@ -68,5 +86,14 @@ class SearchViewController: UIViewController {
             callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        pushFollowersListViewController()
+        return true
     }
 }
