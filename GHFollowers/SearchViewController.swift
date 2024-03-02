@@ -13,6 +13,11 @@ class SearchViewController: UIViewController {
     let userNameTextField = GHFTextField()
     let callToActionButton = GHFButton(backgroundColor: .systemGreen, title: "Get Followers")
 
+    var isUsernameEntered: Bool {
+
+        return ((userNameTextField.text?.isEmpty) == nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -38,6 +43,12 @@ class SearchViewController: UIViewController {
 
     //coloca-se o @objc pois o selector é uma func de objective-c e tem que se expor esse selector em obj-c
     @objc func pushFollowersListViewController() {
+
+        guard isUsernameEntered else {
+
+            print("No name entered")
+            return
+        }
 
         let followersListViewController = FollowersListViewController()
         followersListViewController.username = userNameTextField.text
