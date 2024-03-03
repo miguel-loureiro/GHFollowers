@@ -15,7 +15,10 @@ class SearchViewController: UIViewController {
 
     var isUsernameEntered: Bool {
 
-        return ((userNameTextField.text?.isEmpty) == nil)
+        guard let text = userNameTextField.text else {
+            return false
+        }
+        return !text.isEmpty
     }
 
     override func viewDidLoad() {
@@ -46,7 +49,7 @@ class SearchViewController: UIViewController {
 
         guard isUsernameEntered else {
 
-            print("No name entered")
+            presentGHFAlertOnMainThread(title: "Empty username", message: "Please enter a username. Need to know who to look for 😊", buttonTitle: "OK")
             return
         }
 
