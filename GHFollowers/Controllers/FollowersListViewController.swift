@@ -21,7 +21,7 @@ class FollowersListViewController: UIViewController {
 
             guard let followers = followers else {
 
-                self.presentGHFAlertOnMainThread(title: "Bad stuff happened", message: errorMessage!, buttonTitle: "Ok")
+                self.presentGHFAlertOnMainThread(title: "Bad stuff happened", message: errorMessage!.rawValue, buttonTitle: "Ok")
                 return
             }
 

@@ -17,7 +17,7 @@ class NetworkManager {
 
     }
 
-    func getFollowers(username: String, page: Int, completion: @escaping ([Follower]?, String?) -> Void) {
+    func getFollowers(username: String, page: Int, completion: @escaping ([Follower]?, ErrorMessage?) -> Void) {
 
         //([Follower]?, String?) são Optional pq se tivermos [Followers] não temos error,
         //e se tivermos String(error) então [Follower] é nil
@@ -25,7 +25,7 @@ class NetworkManager {
 
         guard let url = URL(string: endpoint) else {
 
-            completion(nil, "This username created an invalid request")
+            completion(nil, .invalidUsername)
             return
         }
 
@@ -33,19 +33,19 @@ class NetworkManager {
 
             if let _ = error {
 
-                completion(nil, "Unable to complete your request. Check your internet connection")
+                completion(nil, .unableToComplete)
                 return
             }
 
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
 
-                completion(nil, "Invalid response from the server. Try again")
+                completion(nil, .invalidResponse)
                 return
             }
 
             guard let data = data else {
 
-                completion(nil, "The data received from server was invalid")
+                completion(nil, .invalidData)
                 return
             }
 
@@ -59,7 +59,7 @@ class NetworkManager {
 
             } catch  {
 
-                completion(nil, "The data received from server was invalid. Try again")
+                completion(nil, .invalidData)
             }
         }
 
