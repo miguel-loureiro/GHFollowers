@@ -33,9 +33,7 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true //sempre que a view aparece a navbar não é visivel
-                                                           //é colocado aqui e não no viewDidLoad pois o viewDidLoad apenas iria não mostrar a nav bar na 1a vez que
-                                                           //a view aparece. Ao clicar no Favorites e depois ir novamente à Search a nav bar já ia aparecer.
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     func createDismissKeyboardTapGesture() {

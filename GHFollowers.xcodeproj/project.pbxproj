@@ -20,6 +20,9 @@
 		278FCE752B937D7600992398 /* GHFBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE742B937D7600992398 /* GHFBodyLabel.swift */; };
 		278FCE772B937EA700992398 /* GHFAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE762B937EA700992398 /* GHFAlertViewController.swift */; };
 		278FCE792B9388AF00992398 /* UIViewController+AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE782B9388AF00992398 /* UIViewController+AlertController.swift */; };
+		278FCE812B95EF4C00992398 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE802B95EF4C00992398 /* Follower.swift */; };
+		278FCE832B95F0C300992398 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE822B95F0C300992398 /* User.swift */; };
+		278FCE862B960D3E00992398 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE852B960D3E00992398 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		278FCE742B937D7600992398 /* GHFBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFBodyLabel.swift; sourceTree = "<group>"; };
 		278FCE762B937EA700992398 /* GHFAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFAlertViewController.swift; sourceTree = "<group>"; };
 		278FCE782B9388AF00992398 /* UIViewController+AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AlertController.swift"; sourceTree = "<group>"; };
+		278FCE802B95EF4C00992398 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		278FCE822B95F0C300992398 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		278FCE852B960D3E00992398 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,9 @@
 		278FCE522B91E7E400992398 /* GHFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				278FCE842B960D2800992398 /* Managers */,
+				278FCE612B91E7E600992398 /* Info.plist */,
+				278FCE7F2B95EF2C00992398 /* Models */,
 				278FCE7E2B9491FB00992398 /* Support */,
 				278FCE7D2B9491D100992398 /* Products */,
 				278FCE7C2B94918E00992398 /* Extensions */,
@@ -121,11 +130,27 @@
 			children = (
 				278FCE552B91E7E400992398 /* SceneDelegate.swift */,
 				278FCE5C2B91E7E600992398 /* Assets.xcassets */,
-				278FCE612B91E7E600992398 /* Info.plist */,
 				278FCE5E2B91E7E600992398 /* LaunchScreen.storyboard */,
 				278FCE532B91E7E400992398 /* AppDelegate.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		278FCE7F2B95EF2C00992398 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				278FCE802B95EF4C00992398 /* Follower.swift */,
+				278FCE822B95F0C300992398 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		278FCE842B960D2800992398 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				278FCE852B960D3E00992398 /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				278FCE832B95F0C300992398 /* User.swift in Sources */,
 				278FCE692B92289300992398 /* SearchViewController.swift in Sources */,
 				278FCE792B9388AF00992398 /* UIViewController+AlertController.swift in Sources */,
 				278FCE542B91E7E400992398 /* AppDelegate.swift in Sources */,
@@ -205,7 +231,9 @@
 				278FCE562B91E7E400992398 /* SceneDelegate.swift in Sources */,
 				278FCE6D2B923A9100992398 /* GHFButton.swift in Sources */,
 				278FCE732B937B6900992398 /* GHFTitleLabel.swift in Sources */,
+				278FCE812B95EF4C00992398 /* Follower.swift in Sources */,
 				278FCE752B937D7600992398 /* GHFBodyLabel.swift in Sources */,
+				278FCE862B960D3E00992398 /* NetworkManager.swift in Sources */,
 				278FCE772B937EA700992398 /* GHFAlertViewController.swift in Sources */,
 				278FCE6F2B923E3F00992398 /* GHFTextField.swift in Sources */,
 				278FCE712B933F9100992398 /* FollowersListViewController.swift in Sources */,
