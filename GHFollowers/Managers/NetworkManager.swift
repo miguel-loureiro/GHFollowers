@@ -17,7 +17,7 @@ class NetworkManager {
 
     }
 
-    func getFollowers(username: String, page: Int, completion: @escaping ([Follower]?, ErrorMessage?) -> Void) {
+    func getFollowers(username: String, page: Int, completion: @escaping (Result<[Follower], GHFError>) -> Void) {
 
         //([Follower]?, String?) são Optional pq se tivermos [Followers] não temos error,
         //e se tivermos String(error) então [Follower] é nil
@@ -25,7 +25,7 @@ class NetworkManager {
 
         guard let url = URL(string: endpoint) else {
 
-            completion(nil, .invalidUsername)
+            completion(.failure(.invalidUsername))
             return
         }
 
@@ -33,19 +33,19 @@ class NetworkManager {
 
             if let _ = error {
 
-                completion(nil, .unableToComplete)
+                completion(.failure(.unableToComplete))
                 return
             }
 
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
 
-                completion(nil, .invalidResponse)
+                    completion(.failure(.invalidResponse))
                 return
             }
 
             guard let data = data else {
 
-                completion(nil, .invalidData)
+                    completion(.failure(.invalidData))
                 return
             }
 
@@ -55,11 +55,11 @@ class NetworkManager {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 let followers = try decoder.decode([Follower].self, from: data)
-                completion(followers, nil)
+                        completion(.success(followers))
 
             } catch  {
 
-                completion(nil, .invalidData)
+                completion(.failure(.invalidData))
             }
         }
 
