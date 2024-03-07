@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2767A2952B9A068D00D209AF /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2767A2942B9A068D00D209AF /* UIHelper.swift */; };
 		278FCE542B91E7E400992398 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE532B91E7E400992398 /* AppDelegate.swift */; };
 		278FCE562B91E7E400992398 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE552B91E7E400992398 /* SceneDelegate.swift */; };
 		278FCE5D2B91E7E600992398 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278FCE5C2B91E7E600992398 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2767A2942B9A068D00D209AF /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		278FCE502B91E7E400992398 /* GHFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278FCE532B91E7E400992398 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		278FCE552B91E7E400992398 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				278FCE882B963C5800992398 /* ErrorMessage.swift */,
+				2767A2942B9A068D00D209AF /* UIHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				278FCE792B9388AF00992398 /* UIViewController+AlertController.swift in Sources */,
 				278FCE542B91E7E400992398 /* AppDelegate.swift in Sources */,
 				278FCE6B2B9228D100992398 /* FavoritesListViewController.swift in Sources */,
+				2767A2952B9A068D00D209AF /* UIHelper.swift in Sources */,
 				278FCE562B91E7E400992398 /* SceneDelegate.swift in Sources */,
 				278FCE6D2B923A9100992398 /* GHFButton.swift in Sources */,
 				278FCE892B963C5800992398 /* ErrorMessage.swift in Sources */,

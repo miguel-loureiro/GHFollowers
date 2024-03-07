@@ -43,35 +43,24 @@ class FollowersListViewController: UIViewController {
 
     func configureCollectionView() {
 
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(FollowerCollectionViewCell.self, forCellWithReuseIdentifier: FollowerCollectionViewCell.reuseID)
     }
 
-    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
-
-        let width = view.bounds.width
-        let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
-        let itemWidth = availableWidth / 3
-
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
-
-        return flowLayout
-    }
-
     func getFollowers() {
 
-        NetworkManager.shared.getFollowers(username: username, page: 1) { result in
+        NetworkManager.shared.getFollowers(username: username, page: 1) { [weak self] result in
+
+            guard let self = self else { return }
 
             switch result {
 
                 case .success(let followers):
 
+                    //como aqui existe uma strong reference entre o NetworkManager e o proprio View controller deve-se
+                    //evitar isso colocando uma weak reference no self (isso faz-se colocando [weak self] antes de result in
                     self.followers = followers
                     self.updateData()
 
