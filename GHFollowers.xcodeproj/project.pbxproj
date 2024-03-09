@@ -27,6 +27,7 @@
 		278FCE892B963C5800992398 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE882B963C5800992398 /* ErrorMessage.swift */; };
 		278FCE8D2B971D9800992398 /* FollowerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE8C2B971D9800992398 /* FollowerCollectionViewCell.swift */; };
 		278FCE8F2B971EE200992398 /* GHFAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE8E2B971EE200992398 /* GHFAvatarImageView.swift */; };
+		27EA2C342B9C83770077B69E /* UIViewController+LoadingReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA2C332B9C83770077B69E /* UIViewController+LoadingReusable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		278FCE882B963C5800992398 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		278FCE8C2B971D9800992398 /* FollowerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCollectionViewCell.swift; sourceTree = "<group>"; };
 		278FCE8E2B971EE200992398 /* GHFAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFAvatarImageView.swift; sourceTree = "<group>"; };
+		27EA2C332B9C83770077B69E /* UIViewController+LoadingReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LoadingReusable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				278FCE782B9388AF00992398 /* UIViewController+AlertController.swift */,
+				27EA2C332B9C83770077B69E /* UIViewController+LoadingReusable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				278FCE8D2B971D9800992398 /* FollowerCollectionViewCell.swift in Sources */,
 				278FCE732B937B6900992398 /* GHFTitleLabel.swift in Sources */,
 				278FCE812B95EF4C00992398 /* Follower.swift in Sources */,
+				27EA2C342B9C83770077B69E /* UIViewController+LoadingReusable.swift in Sources */,
 				278FCE752B937D7600992398 /* GHFBodyLabel.swift in Sources */,
 				278FCE8F2B971EE200992398 /* GHFAvatarImageView.swift in Sources */,
 				278FCE862B960D3E00992398 /* NetworkManager.swift in Sources */,
