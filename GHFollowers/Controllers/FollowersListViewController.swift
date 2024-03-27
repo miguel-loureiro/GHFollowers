@@ -9,15 +9,12 @@ import UIKit
 
 class FollowersListViewController: UIViewController {
 
-    enum Section {
-
-        case main
-    }
+    enum Section { case main }
 
     var username: String!
     var followers: [Follower] = []
     var pageNumber = 1
-    var hasMoreFollwers =  true
+    var hasMoreFollowers = true
 
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -55,37 +52,37 @@ class FollowersListViewController: UIViewController {
     func getFollowers(username: String, page: Int) {
 
         showloadingView()
+        //como aqui existe uma strong reference entre o NetworkManager e o proprio View controller deve-se
+        //evitar isso colocando uma weak reference no self (isso faz-se colocando [weak self] antes de result in
         NetworkManager.shared.getFollowers(username: username, page: pageNumber) { [weak self] result in
-
             guard let self = self else { return }
-            //vai-se fazer o dismiss do laoding view aqui
             self.dismissLoadingView()
+
             switch result {
+                    
+            case .success(let followers):
+                if followers.count < 100 { self.hasMoreFollowers = false }
+                self.followers.append(contentsOf: followers)
 
-                case .success(let followers):
+                if self.followers.isEmpty {
 
-                    //como aqui existe uma strong reference entre o NetworkManager e o proprio View controller deve-se
-                    //evitar isso colocando uma weak reference no self (isso faz-se colocando [weak self] antes de result in
+                    let message = "This user doesn't have any followers"
+                    DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
+                    return
+                }
 
-                    if followers.count < 100 {
+                self.updateData()
 
-                        self.hasMoreFollwers = false
-                    }
-
-                    self.followers.append(contentsOf: followers)
-                    self.updateData()
-
-                case .failure(let error):
-
-                    self.presentGHFAlertOnMainThread(title: "Bad stuff happened", message: error.rawValue, buttonTitle: "Ok")
+            case .failure(let error):
+                self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
 
     func configureDataSource() {
 
-        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> FollowerCollectionViewCell? in
-
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+            
             //tem que se fazer o cast pois cell é uma collection view cell genérica. ao fazer o cast digo que o seu tipo é FollowerCollectionViewCell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCollectionViewCell.reuseID, for: indexPath) as! FollowerCollectionViewCell
             cell.set(follower: follower)
@@ -98,31 +95,25 @@ class FollowersListViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
-        DispatchQueue.main.async {
-
-            self.dataSource.apply(snapshot, animatingDifferences: true)
-        }
-
+        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
 }
+
 
 extension FollowersListViewController: UICollectionViewDelegate {
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height //altura do screen
-
-//        print("debug: Offset Y = \(offsetY)")
-//        print("debug: Content Height = \(contentHeight)")
-//        print("debug: Height = \(height)")
+        let offsetY         = scrollView.contentOffset.y
+        let contentHeight   = scrollView.contentSize.height
+        let height          = scrollView.frame.size.height
 
         if offsetY > contentHeight - height {
 
-            guard hasMoreFollwers else { return }
+            guard hasMoreFollowers else { return }
             pageNumber += 1
             getFollowers(username: username, page: pageNumber)
         }
     }
 }
+
