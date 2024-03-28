@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		276710ED2BB4D62C000F9722 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276710EC2BB4D62C000F9722 /* UserInfoViewController.swift */; };
 		2767A2952B9A068D00D209AF /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2767A2942B9A068D00D209AF /* UIHelper.swift */; };
 		278FCE542B91E7E400992398 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE532B91E7E400992398 /* AppDelegate.swift */; };
 		278FCE562B91E7E400992398 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FCE552B91E7E400992398 /* SceneDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		276710EC2BB4D62C000F9722 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		2767A2942B9A068D00D209AF /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		278FCE502B91E7E400992398 /* GHFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278FCE532B91E7E400992398 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				278FCE762B937EA700992398 /* GHFAlertViewController.swift */,
 				278FCE6A2B9228D100992398 /* FavoritesListViewController.swift */,
 				278FCE682B92289300992398 /* SearchViewController.swift */,
+				276710EC2BB4D62C000F9722 /* UserInfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				278FCE832B95F0C300992398 /* User.swift in Sources */,
+				276710ED2BB4D62C000F9722 /* UserInfoViewController.swift in Sources */,
 				278FCE692B92289300992398 /* SearchViewController.swift in Sources */,
 				27EA2C3C2B9CE8720077B69E /* GHFEmptyStateView.swift in Sources */,
 				278FCE792B9388AF00992398 /* UIViewController+AlertController.swift in Sources */,
