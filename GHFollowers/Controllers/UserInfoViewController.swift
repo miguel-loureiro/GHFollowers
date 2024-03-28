@@ -17,9 +17,20 @@ class UserInfoViewController: UIViewController {
         view.backgroundColor = .systemBackground
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
-        
-        guard let username else { return }
-        print("O user -------------------> \(username)")
+
+        NetworkManager.shared.getUserInfo(username: username) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+
+                case .success(let user):
+                    print(user)
+
+                case .failure(let error):
+                    self.presentGHFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
     }
 
     @objc func dismissVC() {
