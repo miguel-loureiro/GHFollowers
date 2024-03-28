@@ -28,6 +28,7 @@ class GHFSecondaryTitleLabel: UILabel {
     }
 
     private func configure() {
+        
         textColor = .secondaryLabel
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9

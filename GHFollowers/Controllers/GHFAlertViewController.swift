@@ -20,21 +20,20 @@ class GHFAlertViewController: UIViewController {
 
     let padding: CGFloat = 20
 
-
     init(title: String, message: String, buttonTitle: String) {
+
         super.init(nibName: nil, bundle: nil)
         self.alertTitle     = title
         self.message        = message
         self.buttonTitle    = buttonTitle
     }
 
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     override func viewDidLoad() {
+
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
         configureContainerView()
@@ -43,8 +42,8 @@ class GHFAlertViewController: UIViewController {
         configureMessageLabel()
     }
 
-
     func configureContainerView() {
+
         view.addSubview(containerView)
         containerView.backgroundColor = .systemBackground
         containerView.layer.cornerRadius = 16
@@ -61,6 +60,7 @@ class GHFAlertViewController: UIViewController {
     }
 
     func configureTitleLabel() {
+
         containerView.addSubview(titleLabel)
         titleLabel.text = alertTitle ?? "Something went wrong"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +74,7 @@ class GHFAlertViewController: UIViewController {
     }
 
     func configureActionButton() {
+
         containerView.addSubview(actionButton)
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
@@ -88,6 +89,7 @@ class GHFAlertViewController: UIViewController {
     }
 
     func configureMessageLabel() {
+        
         containerView.addSubview(messageLabel)
         messageLabel.text = message ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
