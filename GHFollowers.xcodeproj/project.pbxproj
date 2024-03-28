@@ -31,6 +31,8 @@
 		27DCC1712BB5A498001D8458 /* GHFSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1702BB5A498001D8458 /* GHFSecondaryTitleLabel.swift */; };
 		27DCC1732BB5A5CD001D8458 /* GHFUserInfoHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1722BB5A5CD001D8458 /* GHFUserInfoHeaderViewController.swift */; };
 		27DCC1752BB5AAAA001D8458 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1742BB5AAAA001D8458 /* Constants.swift */; };
+		27DCC1772BB600F8001D8458 /* GHFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1762BB600F8001D8458 /* GHFItemInfoView.swift */; };
+		27DCC1792BB6041F001D8458 /* GHFItemInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1782BB6041F001D8458 /* GHFItemInfoViewController.swift */; };
 		27EA2C342B9C83770077B69E /* UIViewController+LoadingReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA2C332B9C83770077B69E /* UIViewController+LoadingReusable.swift */; };
 		27EA2C3C2B9CE8720077B69E /* GHFEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA2C3B2B9CE8720077B69E /* GHFEmptyStateView.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +64,8 @@
 		27DCC1702BB5A498001D8458 /* GHFSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFSecondaryTitleLabel.swift; sourceTree = "<group>"; };
 		27DCC1722BB5A5CD001D8458 /* GHFUserInfoHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFUserInfoHeaderViewController.swift; sourceTree = "<group>"; };
 		27DCC1742BB5AAAA001D8458 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		27DCC1762BB600F8001D8458 /* GHFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFItemInfoView.swift; sourceTree = "<group>"; };
+		27DCC1782BB6041F001D8458 /* GHFItemInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFItemInfoViewController.swift; sourceTree = "<group>"; };
 		27EA2C332B9C83770077B69E /* UIViewController+LoadingReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LoadingReusable.swift"; sourceTree = "<group>"; };
 		27EA2C3B2B9CE8720077B69E /* GHFEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFEmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +122,7 @@
 				278FCE682B92289300992398 /* SearchViewController.swift */,
 				276710EC2BB4D62C000F9722 /* UserInfoViewController.swift */,
 				27DCC1722BB5A5CD001D8458 /* GHFUserInfoHeaderViewController.swift */,
+				27DCC1782BB6041F001D8458 /* GHFItemInfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				27EA2C3B2B9CE8720077B69E /* GHFEmptyStateView.swift */,
+				27DCC1762BB600F8001D8458 /* GHFItemInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,11 +324,13 @@
 				278FCE542B91E7E400992398 /* AppDelegate.swift in Sources */,
 				278FCE6B2B9228D100992398 /* FavoritesListViewController.swift in Sources */,
 				2767A2952B9A068D00D209AF /* UIHelper.swift in Sources */,
+				27DCC1792BB6041F001D8458 /* GHFItemInfoViewController.swift in Sources */,
 				278FCE562B91E7E400992398 /* SceneDelegate.swift in Sources */,
 				27DCC1732BB5A5CD001D8458 /* GHFUserInfoHeaderViewController.swift in Sources */,
 				278FCE6D2B923A9100992398 /* GHFButton.swift in Sources */,
 				278FCE8D2B971D9800992398 /* FollowerCollectionViewCell.swift in Sources */,
 				278FCE732B937B6900992398 /* GHFTitleLabel.swift in Sources */,
+				27DCC1772BB600F8001D8458 /* GHFItemInfoView.swift in Sources */,
 				278FCE812B95EF4C00992398 /* Follower.swift in Sources */,
 				27EA2C342B9C83770077B69E /* UIViewController+LoadingReusable.swift in Sources */,
 				278FCE752B937D7600992398 /* GHFBodyLabel.swift in Sources */,
