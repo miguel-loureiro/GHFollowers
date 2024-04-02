@@ -35,4 +35,10 @@ class GHFButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
     }
 
+    func set(backroundColor: UIColor, title: String) {
+
+        self.backgroundColor = backroundColor
+        setTitle(title, for: .normal)
+    }
+
 }

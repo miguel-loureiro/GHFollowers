@@ -42,6 +42,8 @@ class UserInfoViewController: UIViewController {
                     DispatchQueue.main.async {
 
                         self.addVCToContainer(childViewController: GHFUserInfoHeaderViewController(user: user), to: self.headerView)
+                        self.addVCToContainer(childViewController: GHFRepoItemViewController(user: user), to: self.itemViewOne)
+                        self.addVCToContainer(childViewController: GHFFollowerItemViewController(user: user), to: self.itemViewTwo)
                     }
 
                 case .failure(let error):
@@ -53,7 +55,7 @@ class UserInfoViewController: UIViewController {
     func layoutUI() {
 
         let padding: CGFloat = 20
-        let itemHeight: CGFloat = 140
+        let itemHeight: CGFloat = 120
 
         itemViews = [headerView, itemViewOne, itemViewTwo]
 
@@ -67,9 +69,6 @@ class UserInfoViewController: UIViewController {
                 itemView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
             ])
         }
-
-        itemViewOne.backgroundColor = .systemBlue
-        itemViewTwo.backgroundColor = .systemRed
 
         headerView.translatesAutoresizingMaskIntoConstraints = false
         itemViewOne.translatesAutoresizingMaskIntoConstraints = false
