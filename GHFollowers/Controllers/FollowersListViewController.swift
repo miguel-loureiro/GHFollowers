@@ -46,6 +46,8 @@ class FollowersListViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
     }
 
     func configureCollectionView() {
@@ -77,22 +79,22 @@ class FollowersListViewController: UIViewController {
             self.dismissLoadingView()
 
             switch result {
-                    
-            case .success(let followers):
-                if followers.count < 100 { self.hasMoreFollowers = false }
-                self.followers.append(contentsOf: followers)
 
-                if self.followers.isEmpty {
+                case .success(let followers):
+                    if followers.count < 100 { self.hasMoreFollowers = false }
+                    self.followers.append(contentsOf: followers)
 
-                    let message = "This user doesn't have any followers"
-                    DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
-                    return
-                }
+                    if self.followers.isEmpty {
+
+                        let message = "This user doesn't have any followers"
+                        DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
+                        return
+                    }
 
                     self.updateData(on: self.followers)
 
-            case .failure(let error):
-                self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
+                case .failure(let error):
+                    self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
@@ -100,7 +102,7 @@ class FollowersListViewController: UIViewController {
     func configureDataSource() {
 
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
-            
+
             //tem que se fazer o cast pois cell é uma collection view cell genérica. ao fazer o cast digo que o seu tipo é FollowerCollectionViewCell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCollectionViewCell.reuseID, for: indexPath) as! FollowerCollectionViewCell
             cell.set(follower: follower)
@@ -115,6 +117,12 @@ class FollowersListViewController: UIViewController {
         snapshot.appendItems(folowers)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
+
+    @objc func addButtonTapped() {
+        
+        print("Add Button tapped !!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    }
+
 }
 
 extension FollowersListViewController: UICollectionViewDelegate {
