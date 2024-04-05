@@ -64,6 +64,7 @@ class FollowersListViewController: UIViewController {
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     func getFollowers(username: String, page: Int) {
@@ -138,6 +139,9 @@ extension FollowersListViewController: UICollectionViewDelegate {
         let follower = activeArray[indexPath.item]
 
         let destinationViewController = UserInfoViewController()
+        // é o UserInfoViewController que vai "informar" que o botão foi tapped , pois é neste VC que está
+        // o GHFFollowerItemViewController e terá que colocar um delegate para informar o parent VC (UserInfoViewController)
+        // de que o botão foi tapped. Ou seja o FollowerListVC está a "escutar" o UserInfoVC
         destinationViewController.delegate =  self
         destinationViewController.username = follower.login
         let navigationController = UINavigationController(rootViewController: destinationViewController)

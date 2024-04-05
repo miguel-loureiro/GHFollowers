@@ -9,6 +9,8 @@ import UIKit
 
 class GHFRepoItemViewController: GHFItemInfoViewController {
 
+    weak var delegate: UserInfoViewControllerDelegate!
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
