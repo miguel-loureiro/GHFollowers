@@ -1,15 +1,15 @@
 //
-//  UIViewController+LoadingReusable.swift
+//  GHFDataLoadingViewController.swift
 //  GHFollowers
 //
-//  Created by António Loureiro on 09/03/2024.
+//  Created by António Loureiro on 08/04/2024.
 //
 
 import UIKit
 
-fileprivate var containerView: UIView!
+class GHFDataLoadingViewController: UIViewController {
 
-extension UIViewController {
+    var containerView: UIView!
 
     func showloadingView() {
 
@@ -21,7 +21,7 @@ extension UIViewController {
 
         UIView.animate(withDuration: 0.25) {
 
-            containerView.alpha = 0.8
+            self.containerView.alpha = 0.8
         }
 
         let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -34,7 +34,7 @@ extension UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        
+
         activityIndicator.startAnimating()
     }
 
@@ -44,8 +44,8 @@ extension UIViewController {
         //e só podemos remover views a partir da main thread
         DispatchQueue.main.async {
 
-            containerView.removeFromSuperview()
-            containerView = nil
+            self.containerView.removeFromSuperview()
+            self.containerView = nil
         }
     }
 

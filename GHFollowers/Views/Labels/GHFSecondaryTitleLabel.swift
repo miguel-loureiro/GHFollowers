@@ -20,15 +20,14 @@ class GHFSecondaryTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(fontSize: CGFloat) {
+    convenience init(fontSize: CGFloat) {
 
-        super.init(frame: .zero)
+        self.init(frame: .zero)
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-        configure()
     }
 
     private func configure() {
-        
+
         textColor = .secondaryLabel
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9

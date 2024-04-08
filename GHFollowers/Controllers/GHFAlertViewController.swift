@@ -9,7 +9,7 @@ import UIKit
 
 class GHFAlertViewController: UIViewController {
 
-    let containerView = UIView()
+    let containerView = GHFAlertContainerView()
     let titleLabel = GHFTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel = GHFBodyLabel(textAlignment: .center)
     let actionButton = GHFButton(backgroundColor: .systemPink, title: "Ok")
@@ -35,7 +35,7 @@ class GHFAlertViewController: UIViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         configureContainerView()
         configureTitleLabel()
         configureActionButton()
@@ -45,12 +45,7 @@ class GHFAlertViewController: UIViewController {
     func configureContainerView() {
 
         view.addSubview(containerView)
-        containerView.backgroundColor = .systemBackground
-        containerView.layer.cornerRadius = 16
-        containerView.layer.borderWidth = 2
-        containerView.layer.borderColor = UIColor.white.cgColor
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
