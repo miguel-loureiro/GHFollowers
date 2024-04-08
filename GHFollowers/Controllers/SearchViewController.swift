@@ -12,6 +12,9 @@ class SearchViewController: UIViewController {
     let logoImageView = UIImageView()
     let userNameTextField = GHFTextField()
     let callToActionButton = GHFButton(backgroundColor: .systemGreen, title: "Get Followers")
+    //como se vai puxar o placeholder do search para cima, e este vai ser relativo ao logo então
+    //como temos screens de alturas diferentes(iPhoneSE ou Iphone11, etc..)
+    var logoImageViewTopConstraint: NSLayoutConstraint!
 
     var isUsernameEntered: Bool {
 
@@ -33,16 +36,18 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
+        userNameTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     func createDismissKeyboardTapGesture() {
 
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
 
     //coloca-se o @objc pois o selector é uma func de objective-c e tem que se expor esse selector em obj-c
+    //ver a func configureCallToActionButtonButton() abaixo
     @objc func pushFollowersListViewController() {
 
         guard isUsernameEntered else {
@@ -51,9 +56,9 @@ class SearchViewController: UIViewController {
             return
         }
 
-        let followersListViewController = FollowersListViewController()
-        followersListViewController.username = userNameTextField.text
-        followersListViewController.title = userNameTextField.text
+        userNameTextField.resignFirstResponder()
+
+        let followersListViewController = FollowersListViewController(username: userNameTextField.text!)
         navigationController?.pushViewController(followersListViewController, animated: true)
     }
 
@@ -61,11 +66,15 @@ class SearchViewController: UIViewController {
 
         view.addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints =  false
-        logoImageView.image = UIImage(named: "gh-logo")!
+        logoImageView.image = Images.ghLogo
+
+        let topConstraintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
+
+        logoImageViewTopConstraint = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
+        logoImageViewTopConstraint.isActive = true
 
         NSLayoutConstraint.activate([
 
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80.0),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200.0),
             logoImageView.widthAnchor.constraint(equalToConstant: 200.0)
