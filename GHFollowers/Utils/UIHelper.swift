@@ -7,12 +7,8 @@
 
 import UIKit
 
-struct UIHelper {
+enum UIHelper {
 
-    //usa-se o static pois assim posso fazer UIHelper.createThreeColumnFlowLayout()
-    //senão não fosse static tinha de criar um objeto do tipo UIHelper , ex. let exemplo = UIHelper()
-    //e depois podia chamar o método create... assim exemplo.createThreeColumnFlowLayout()
-    //com o static acedo ao método através do tipo e não através de uma instância da classe/struct
     static func createThreeColumnFlowLayout(in view: UIView) -> UICollectionViewFlowLayout {
 
         //como não temos view (onde as contas das width se baseiam) tenho que adicionar como argumento da func

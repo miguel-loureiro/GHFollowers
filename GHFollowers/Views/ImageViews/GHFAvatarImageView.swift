@@ -9,7 +9,7 @@ import UIKit
 
 class GHFAvatarImageView: UIImageView {
 
-    let placeholderImage = UIImage(named: "avatar-placeholder")! //aqui fiz o force unwrap porque sei que tenho esta imagem nos assets
+    let placeholderImage = Images.placeholder
     let cache = NetworkManager.shared.cache
 
     override init(frame: CGRect) {

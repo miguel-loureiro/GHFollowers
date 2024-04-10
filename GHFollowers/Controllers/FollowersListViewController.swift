@@ -22,6 +22,7 @@ class FollowersListViewController: GHFDataLoadingViewController{
     var pageNumber = 1
     var hasMoreFollowers = true
     var isSearching = false
+    var isLoadingMoreFollowers = false
 
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -74,7 +75,6 @@ class FollowersListViewController: GHFDataLoadingViewController{
 
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -83,6 +83,7 @@ class FollowersListViewController: GHFDataLoadingViewController{
     func getFollowers(username: String, page: Int) {
 
         showloadingView()
+        isLoadingMoreFollowers = true
         //como aqui existe uma strong reference entre o NetworkManager e o proprio View controller deve-se
         //evitar isso colocando uma weak reference no self (isso faz-se colocando [weak self] antes de result in
         NetworkManager.shared.getFollowers(username: username, page: pageNumber) { [weak self] result in
@@ -107,6 +108,8 @@ class FollowersListViewController: GHFDataLoadingViewController{
                 case .failure(let error):
                     self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
             }
+
+            self.isLoadingMoreFollowers = false
         }
     }
 
@@ -170,7 +173,7 @@ extension FollowersListViewController: UICollectionViewDelegate {
 
         if offsetY > contentHeight - height {
 
-            guard hasMoreFollowers else { return }
+            guard hasMoreFollowers, !isLoadingMoreFollowers else { return } //apenas fazemos a proxima network call quando tivermos recebido os followers senão estava a fazer pedidos concurrentes e isso é mau
             pageNumber += 1
             getFollowers(username: username, page: pageNumber)
         }
@@ -193,20 +196,21 @@ extension FollowersListViewController: UICollectionViewDelegate {
     }
 }
 
-extension FollowersListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowersListViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
 
-        guard let filterString = searchController.searchBar.text, !filterString.isEmpty else { return }
+        guard let filterString = searchController.searchBar.text, !filterString.isEmpty else {
+            
+            filteredFollowers.removeAll()
+            updateData(on: followers)
+            isSearching =  false
+            return
+        }
+
         isSearching = true
         filteredFollowers = followers.filter { $0.login.lowercased().contains(filterString.lowercased()) }
         updateData(on: filteredFollowers)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-
-        isSearching = false
-        updateData(on: followers)
     }
 }
 
@@ -219,7 +223,7 @@ extension FollowersListViewController: FollowerListViewControlerDelegate {
         pageNumber = 1
         followers.removeAll()
         filteredFollowers.removeAll()
-        collectionView.setContentOffset(.zero, animated: true)
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         getFollowers(username: username, page: pageNumber)
     }
 }
