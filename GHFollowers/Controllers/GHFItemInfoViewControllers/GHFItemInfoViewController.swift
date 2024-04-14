@@ -15,7 +15,6 @@ class GHFItemInfoViewController: UIViewController {
     let actionButton = GHFButton()
 
     var user: User!
-//    weak var delegate: UserInfoViewControllerDelegate!
 
     init(user: User) {
 
@@ -60,8 +59,7 @@ class GHFItemInfoViewController: UIViewController {
 
     private func layoutUI() {
 
-        view.addSubview(stackView)
-        view.addSubview(actionButton)
+        view.addsubViews(stackView, actionButton)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
 

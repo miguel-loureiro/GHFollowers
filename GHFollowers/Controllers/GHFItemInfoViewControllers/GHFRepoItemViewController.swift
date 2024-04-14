@@ -7,9 +7,24 @@
 
 import UIKit
 
+protocol RepoItemViewControllerDelegate: AnyObject {
+
+    func didTapGitHubProfile(for user: User)
+}
+
 class GHFRepoItemViewController: GHFItemInfoViewController {
 
-    weak var delegate: UserInfoViewControllerDelegate!
+    weak var delegate: RepoItemViewControllerDelegate!
+
+    init(user: User, delegate: RepoItemViewControllerDelegate) {
+
+        super.init(user: user)
+        self.delegate = delegate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
 

@@ -7,13 +7,12 @@
 
 import UIKit
 
-protocol UserInfoViewControllerDelegate: AnyObject {
+protocol UserInfoViewControlerDelegate: AnyObject {
 
-    func didTapGitHubProfile(for user: User)
-    func didTapGetFollowers(for user: User)
+    func didRequestFollowers(for username: String)
 }
 
-class UserInfoViewController: UIViewController {
+class UserInfoViewController: GHFDataLoadingViewController {
 
     let headerView = UIView()
     let itemViewOne = UIView()
@@ -22,7 +21,7 @@ class UserInfoViewController: UIViewController {
 
     var username: String!
     var itemViews: [UIView] = []
-    weak var delegate: FollowerListViewControlerDelegate!
+    weak var delegate: UserInfoViewControlerDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,15 +59,9 @@ class UserInfoViewController: UIViewController {
 
     func configureUIElements(with user: User) {
 
-        let repoItemViewController = GHFRepoItemViewController(user: user)
-        repoItemViewController.delegate = self
-
-        let followerItemViewController = GHFFollowerItemViewController(user: user)
-        followerItemViewController.delegate = self
-
         self.addVCToContainer(childViewController: GHFUserInfoHeaderViewController(user: user), to: self.headerView)
-        self.addVCToContainer(childViewController: repoItemViewController, to: self.itemViewOne)
-        self.addVCToContainer(childViewController: followerItemViewController, to: self.itemViewTwo)
+        self.addVCToContainer(childViewController: GHFRepoItemViewController(user: user, delegate: self), to: self.itemViewOne)
+        self.addVCToContainer(childViewController: GHFFollowerItemViewController(user: user, delegate: self), to: self.itemViewTwo)
         self.dateLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
     }
 
@@ -96,7 +89,7 @@ class UserInfoViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 180),
+            headerView.heightAnchor.constraint(equalToConstant: 210),
 
             itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
             itemViewOne.heightAnchor.constraint(equalToConstant: itemHeight),
@@ -105,7 +98,7 @@ class UserInfoViewController: UIViewController {
             itemViewTwo.heightAnchor.constraint(equalToConstant: itemHeight),
 
             dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: padding),
-            dateLabel.heightAnchor.constraint(equalToConstant: 18)
+            dateLabel.heightAnchor.constraint(equalToConstant: 50)
 
         ])
     }
@@ -125,8 +118,7 @@ class UserInfoViewController: UIViewController {
        }
 }
 
-extension UserInfoViewController: UserInfoViewControllerDelegate {
-
+extension UserInfoViewController: RepoItemViewControllerDelegate {
     func didTapGitHubProfile(for user: User) {
 
         guard let url = URL(string: user.htmlUrl) else {
@@ -137,7 +129,9 @@ extension UserInfoViewController: UserInfoViewControllerDelegate {
 
         presentSafariViewController(with: url)
     }
-    
+}
+
+extension UserInfoViewController: FollowerItemViewControllerDelegate {
     func didTapGetFollowers(for user: User) {
 
         //dismissVC
