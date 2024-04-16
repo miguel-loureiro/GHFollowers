@@ -11,7 +11,8 @@ class SearchViewController: UIViewController {
 
     let logoImageView = UIImageView()
     let userNameTextField = GHFTextField()
-    let callToActionButton = GHFButton(backgroundColor: .systemGreen, title: "Get Followers")
+    let callToActionButton = GHFButton(color: .systemGreen, title: "Get Followers", systemImageName: "person.3")
+
     //como se vai puxar o placeholder do search para cima, e este vai ser relativo ao logo então
     //como temos screens de alturas diferentes(iPhoneSE ou Iphone11, etc..)
     var logoImageViewTopConstraint: NSLayoutConstraint!
