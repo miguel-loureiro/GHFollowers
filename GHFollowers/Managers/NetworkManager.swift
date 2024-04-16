@@ -15,7 +15,6 @@ class NetworkManager {
 
     private init() {}
 
-
     func getFollowers(username: String, page: Int, completed: @escaping (Result<[Follower], GHFError>) -> Void) {
         let endpoint = baseURL + "\(username)/followers?per_page=100&page=\(page)"
 
@@ -54,8 +53,8 @@ class NetworkManager {
         task.resume()
     }
 
-
     func getUserInfo(username: String, completed: @escaping (Result<User, GHFError>) -> Void) {
+        
         let endpoint = baseURL + "\(username)"
 
         guard let url = URL(string: endpoint) else {
