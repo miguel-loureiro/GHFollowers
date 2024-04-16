@@ -79,33 +79,30 @@ class FollowersListViewController: GHFDataLoadingViewController{
 
         showloadingView()
         isLoadingMoreFollowers = true
-        //como aqui existe uma strong reference entre o NetworkManager e o proprio View controller deve-se
-        //evitar isso colocando uma weak reference no self (isso faz-se colocando [weak self] antes de result in
+
         NetworkManager.shared.getFollowers(username: username, page: pageNumber) { [weak self] result in
             guard let self = self else { return }
             self.dismissLoadingView()
 
             switch result {
+            case .success(let followers):
+                self.updateUI(with: followers)
 
-                case .success(let followers):
-                    self.updateUI(with: followers)
-
-                case .failure(let error):
-                    self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
+            case .failure(let error):
+                self.presentGHFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
             }
 
             self.isLoadingMoreFollowers = false
         }
     }
 
-    func updateUI(with: [Follower]) {
-
+    func updateUI(with followers: [Follower]) {
+        
         if followers.count < 100 { self.hasMoreFollowers = false }
         self.followers.append(contentsOf: followers)
 
         if self.followers.isEmpty {
-
-            let message = "This user doesn't have any followers"
+            let message = "This user doesn't have any followers. Go follow them 😀."
             DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
             return
         }
