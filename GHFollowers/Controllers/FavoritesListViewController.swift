@@ -49,7 +49,7 @@ class FavoritesListViewController: GHFDataLoadingViewController {
 
         PersistenceManager.retrieveFavorites { [weak self] result in
 
-            guard let self = self else {
+            guard let self else {
                 return
             }
 
@@ -116,13 +116,17 @@ extension FavoritesListViewController: UITableViewDataSource, UITableViewDelegat
 
         PersistenceManager.updateWith(favorite: favorite, actionType: .remove) { [weak self] error in
 
-            guard let self = self else { return }
+            guard let self else { return }
 
-            guard let error = error else {
+            guard let error else {
 
                 //coloca-se o self para se ter acesso ao favorites da func, claro.
                 self.favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
+                if self.favorites.isEmpty {
+
+                    showEmptyStateView(with: "No favorites.\nAdd one on the follower screen", in: self.view)
+                }
                 return
             }
 
