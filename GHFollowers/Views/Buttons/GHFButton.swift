@@ -44,5 +44,9 @@ class GHFButton: UIButton {
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
     }
+}
 
+#Preview() {
+
+    return GHFButton(color: .blue, title: "Test Button", systemImageName: "pencil")
 }
