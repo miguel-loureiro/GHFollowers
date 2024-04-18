@@ -44,6 +44,7 @@
 		27DCC1C12BBEF1DE001D8458 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1C02BBEF1DE001D8458 /* UIViewController+Safari.swift */; };
 		27DCC1C32BC00BB6001D8458 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DCC1C22BC00BB6001D8458 /* PersistenceManager.swift */; };
 		27EA2C3C2B9CE8720077B69E /* GHFEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA2C3B2B9CE8720077B69E /* GHFEmptyStateView.swift */; };
+		27F37AF82BD1640300ECD8BF /* FollowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F37AF72BD1640300ECD8BF /* FollowerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		27DCC1C02BBEF1DE001D8458 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
 		27DCC1C22BC00BB6001D8458 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		27EA2C3B2B9CE8720077B69E /* GHFEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFEmptyStateView.swift; sourceTree = "<group>"; };
+		27F37AF72BD1640300ECD8BF /* FollowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,7 +224,7 @@
 		278FCE8B2B971B2500992398 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				278FCE8C2B971D9800992398 /* FollowerCollectionViewCell.swift */,
+				27F37AF62BD163CC00ECD8BF /* FollowerCell */,
 				27B0E5D62BC3FC3200CD5876 /* FavoriteTableViewCell.swift */,
 			);
 			path = Cells;
@@ -288,6 +290,15 @@
 				27B0E5DB2BC45CF900CD5876 /* GHFAlertContainerView.swift */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		27F37AF62BD163CC00ECD8BF /* FollowerCell */ = {
+			isa = PBXGroup;
+			children = (
+				278FCE8C2B971D9800992398 /* FollowerCollectionViewCell.swift */,
+				27F37AF72BD1640300ECD8BF /* FollowerView.swift */,
+			);
+			path = FollowerCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +401,7 @@
 				278FCE8F2B971EE200992398 /* GHFAvatarImageView.swift in Sources */,
 				27B0E5DC2BC45CF900CD5876 /* GHFAlertContainerView.swift in Sources */,
 				278FCE862B960D3E00992398 /* NetworkManager.swift in Sources */,
+				27F37AF82BD1640300ECD8BF /* FollowerView.swift in Sources */,
 				27DCC1712BB5A498001D8458 /* GHFSecondaryTitleLabel.swift in Sources */,
 				278FCE772B937EA700992398 /* GHFAlertViewController.swift in Sources */,
 				278FCE6F2B923E3F00992398 /* GHFTextField.swift in Sources */,
