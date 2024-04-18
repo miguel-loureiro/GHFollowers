@@ -54,7 +54,7 @@ class SearchViewController: UIViewController {
 
         guard isUsernameEntered else {
 
-            presentGHFAlertOnMainThread(title: "Empty username", message: "Please enter a username. Need to know who to look for 😊", buttonTitle: "OK")
+            presentGHFAlert(title: "Empty username", message: "Please enter a username. Need to know who to look for 😊", buttonTitle: "OK")
             return
         }
 

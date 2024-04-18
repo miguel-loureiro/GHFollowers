@@ -39,20 +39,21 @@ class UserInfoViewController: GHFDataLoadingViewController {
 
     func getUserInfo() {
 
-        NetworkManager.shared.getUserInfo(username: username) { [weak self] result in
+        Task {
 
-            guard let self = self else { return }
+            do {
 
-            switch result {
+                let user =  try await NetworkManager.shared.getUserInfo(username: username)
+                configureUIElements(with: user)
+            } catch {
 
-                case .success(let user):
-                    DispatchQueue.main.async {
+                if let ghfError = error as? GHFError {
 
-                        self.configureUIElements(with: user)
-                    }
+                    presentGHFAlert(title: "Something wrong", message: ghfError.rawValue, buttonTitle: "Ok")
+                } else {
 
-                case .failure(let error):
-                    self.presentGHFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                    presentDefaultError()
+                }
             }
         }
     }
@@ -123,7 +124,7 @@ extension UserInfoViewController: RepoItemViewControllerDelegate {
 
         guard let url = URL(string: user.htmlUrl) else {
 
-            presentGHFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid", buttonTitle: "Ok")
+            presentGHFAlert(title: "Invalid URL", message: "The url attached to this user is invalid", buttonTitle: "Ok")
             return
         }
 
@@ -139,7 +140,7 @@ extension UserInfoViewController: FollowerItemViewControllerDelegate {
 
         guard user.followers != 0 else {
 
-            presentGHFAlertOnMainThread(title: "No followers", message: "This user has 0 followers", buttonTitle: "Ok")
+            presentGHFAlert(title: "No followers", message: "This user has 0 followers", buttonTitle: "Ok")
             return
         }
 

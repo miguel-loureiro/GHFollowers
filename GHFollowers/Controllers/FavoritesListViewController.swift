@@ -58,7 +58,10 @@ class FavoritesListViewController: GHFDataLoadingViewController {
                     self.updateUI(with: favorites)
 
                 case .failure(let error):
-                    self.presentGHFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                    DispatchQueue.main.async {
+
+                        self.presentGHFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                    }
             }
         }
     }
@@ -116,14 +119,17 @@ extension FavoritesListViewController: UITableViewDataSource, UITableViewDelegat
             guard let self = self else { return }
 
             guard let error = error else {
-                
+
                 //coloca-se o self para se ter acesso ao favorites da func, claro.
                 self.favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
                 return
             }
 
-            self.presentGHFAlertOnMainThread(title: "Unable to remove", message: error.rawValue, buttonTitle: "Ok")
+            DispatchQueue.main.async {
+
+                self.presentGHFAlert(title: "Unable to remove", message: error.rawValue, buttonTitle: "Ok")
+            }
         }
     }
 }
