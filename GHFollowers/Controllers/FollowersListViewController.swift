@@ -49,6 +49,24 @@ class FollowersListViewController: GHFDataLoadingViewController{
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
+    override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
+
+        if followers.isEmpty && !isLoadingMoreFollowers {
+
+            var config = UIContentUnavailableConfiguration.empty()
+            config.image = .init(systemName: "person.slash")
+            config.text = "No Followers"
+            config.secondaryText = "This user has no followers"
+            contentUnavailableConfiguration = config
+        } else if isSearching && filteredFollowers.isEmpty {
+
+            contentUnavailableConfiguration = UIContentUnavailableConfiguration.search()
+        } else {
+            
+            contentUnavailableConfiguration = nil
+        }
+    }
+
     func configureViewController() {
 
         view.backgroundColor = .systemBackground
@@ -75,12 +93,12 @@ class FollowersListViewController: GHFDataLoadingViewController{
         navigationItem.hidesSearchBarWhenScrolling = false
     }
 
-    func getFollowers(username: String, page: Int) {
-
-        showloadingView()
-        isLoadingMoreFollowers = true
-
-//        //old way - using completion handler
+//    //old way - using completion handler
+//    func getFollowers(username: String, page: Int) {
+//
+//        showloadingView()
+//        isLoadingMoreFollowers = true
+//
 //        NetworkManager.shared.getFollowers(username: username, page: pageNumber) { [weak self] result in
 //            guard let self = self else { return }
 //            self.dismissLoadingView()
@@ -96,8 +114,12 @@ class FollowersListViewController: GHFDataLoadingViewController{
 //            self.isLoadingMoreFollowers = false
 //        }
 
-        //new way - using async await
-        
+    //new way - using async await
+    func getFollowers(username: String, page: Int) {
+
+        showloadingView()
+        isLoadingMoreFollowers = true
+
         //como aparece um erro a indicar que a func não suporta concurrency, então coloca-se Task
         //para colocar a func num contexto de concurrency
         Task {
@@ -118,7 +140,7 @@ class FollowersListViewController: GHFDataLoadingViewController{
 
                     presentDefaultError()
                 }
-                
+
                 isLoadingMoreFollowers = false
                 dismissLoadingView()
             }
@@ -126,31 +148,25 @@ class FollowersListViewController: GHFDataLoadingViewController{
 
         //forma resumida: se fizer o try optional então ou temos o nosso array de Followers ou temos um nil
         //se tiver um array de Follower então faço updateUI, se tiver nil então apresento o erro genérico
-//        Task {
-//
-//            guard let followers = try? await NetworkManager.shared.getFollowers(username: username, page: page) else {
-//
-//                presentDefaultError()
-//                dismissLoadingView()
-//            }
-//
-//            updateUI(with: followers)
-//            dismissLoadingView()
-//        }
+        //        Task {
+        //
+        //            guard let followers = try? await NetworkManager.shared.getFollowers(username: username, page: page) else {
+        //
+        //                presentDefaultError()
+        //                dismissLoadingView()
+        //            }
+        //
+        //            updateUI(with: followers)
+        //            dismissLoadingView()
+        //        }
     }
 
     func updateUI(with followers: [Follower]) {
         
         if followers.count < 100 { self.hasMoreFollowers = false }
         self.followers.append(contentsOf: followers)
-
-        if self.followers.isEmpty {
-            let message = "This user doesn't have any followers. Go follow them 😀."
-            DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
-            return
-        }
-
         self.updateData(on: self.followers)
+        setNeedsUpdateContentUnavailableConfiguration()
     }
 
     func configureDataSource() {
@@ -233,7 +249,7 @@ extension FollowersListViewController: UICollectionViewDelegate {
 
         if offsetY > contentHeight - height {
 
-            guard hasMoreFollowers, !isLoadingMoreFollowers else { return } //apenas fazemos a proxima network call quando tivermos recebido os followers senão estava a fazer pedidos concurrentes e isso é mau
+            guard hasMoreFollowers, !isLoadingMoreFollowers, !isSearching else { return } //apenas fazemos a proxima network call quando tivermos recebido os followers senão estava a fazer pedidos concurrentes e isso é mau
             pageNumber += 1
             getFollowers(username: username, page: pageNumber)
         }
@@ -257,20 +273,22 @@ extension FollowersListViewController: UICollectionViewDelegate {
 }
 
 extension FollowersListViewController: UISearchResultsUpdating {
-
+    
     func updateSearchResults(for searchController: UISearchController) {
-
+        
         guard let filterString = searchController.searchBar.text, !filterString.isEmpty else {
             
             filteredFollowers.removeAll()
             updateData(on: followers)
             isSearching =  false
+            setNeedsUpdateContentUnavailableConfiguration()
             return
         }
-
+        
         isSearching = true
         filteredFollowers = followers.filter { $0.login.lowercased().contains(filterString.lowercased()) }
         updateData(on: filteredFollowers)
+        setNeedsUpdateContentUnavailableConfiguration()
     }
 }
 
@@ -283,6 +301,7 @@ extension FollowersListViewController: UserInfoViewControlerDelegate {
         pageNumber = 1
         followers.removeAll()
         filteredFollowers.removeAll()
+        navigationItem.searchController?.searchBar.text = ""
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         getFollowers(username: username, page: pageNumber)
     }
